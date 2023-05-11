@@ -3,13 +3,15 @@ import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({super.key, required this.transactions});
+  const TransactionList(
+      {super.key, required this.transactions, required this.deleteTX});
   final List<Transaction> transactions;
+  final Function deleteTX;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 450,
       child: transactions.isEmpty
           ? Column(
               children: [
@@ -40,6 +42,10 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                         DateFormat.yMMMd().format(transactions[index].date)),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => deleteTX(transactions[index].id),
+                    ),
                   ),
                 );
               },
